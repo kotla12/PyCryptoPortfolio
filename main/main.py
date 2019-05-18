@@ -8,7 +8,7 @@ import json
 pycrypto = Tk()
 pycrypto.title('Crypto Portfolio')
 pycrypto.iconbitmap("img/favicon.ico")
-updateImage = PhotoImage(file= "img/iconfinder_button_blue_repeat_40719.png").subsample(2,2)
+updateImage = PhotoImage(file= "img/refresh.png").subsample(2,2)
 # font color
 def font_color(amount):
     if amount >= 0:
