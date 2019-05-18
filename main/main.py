@@ -18,7 +18,7 @@ price.grid(row= 0, column = 1, sticky=N + S + E + W)
 no_coins = Label(pycrypto, text="Coins Owned", bg="black", fg="white")
 no_coins.grid(row= 0, column = 2, sticky=N + S + E + W)
     
-amount_paid = Label(pycrypto, text="Total Amout Paid", bg="black", fg="white")
+amount_paid = Label(pycrypto, text="Total Amount Paid", bg="black", fg="white")
 amount_paid.grid(row= 0, column = 3, sticky=N + S + E + W)
     
 currnet_val = Label(pycrypto, text="Current Value", bg="black", fg="white")
