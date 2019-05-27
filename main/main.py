@@ -10,7 +10,7 @@ from tkinter import messagebox, Menu
 pycrypto = Tk()
 pycrypto.title('Crypto Portfolio')
 pycrypto.iconbitmap("img/favicon.ico")
-pycrypto.geometry("1100x350")
+pycrypto.geometry("1250x350+0+0")
 updateImage = PhotoImage(file= "img/refresh.png").subsample(2,2)
 
 # database sectoin
@@ -46,9 +46,23 @@ def app_nav():
     def close_app(): # to close the app
         pycrypto.destroy()
 
+    # Function to pop a new window with coin info list:
     def show_list():
-        list = Toplevel()
-        list.title("All Coins")
+        window = tk.Toplevel(pycrypto)
+        window.geometry("300x500")
+        scrollbar = Scrollbar(window)
+        scrollbar.pack( side = RIGHT, fill=Y )
+        api_request = requests.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=300&convert=USD&CMC_PRO_API_KEY=3889ce63-c733-403d-8b7d-c41a2438b4ea")
+        api = json.loads(api_request.content)
+
+        coinList = Listbox(window, yscrollcommand = scrollbar.set )  
+    
+        for i in range(0, 300):
+            name = Label(window, text= api["data"][i]["name"] + ":    " + api["data"][i]["symbol"] + "    Current Price:   " + "${0:.2f}".format(api["data"][i]["quote"]["USD"]["price"]) , bg="#F3F4F6", fg="black", font="Lato 12")
+            coinList.insert(END, name.cget("text"))
+
+        coinList.pack( side = LEFT, fill = BOTH, expand = True)
+        scrollbar.config( command = coinList.yview )
 
 
     menu = Menu(pycrypto) # create a menu variable that holds all the items file, edit, help ...
@@ -134,17 +148,20 @@ def my_portfolio():
                 no_coins = HoverLabel(pycrypto, text=coin[2],  activebackground="#b7b7b7", fg="black", font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "groove")
                 no_coins.grid(row= coin_row, column = 3, sticky=N + S + E + W)
 
+                pur_at = HoverLabel(pycrypto, text=coin[3],  activebackground="#b7b7b7", fg="black", font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "groove")
+                pur_at.grid(row= coin_row, column = 4, sticky=N + S + E + W) #starts at col 4
+
                 amount_paid = HoverLabel(pycrypto, text="${0:.2f}".format(float(total_paid)),  activebackground="#b7b7b7", fg="black", font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "groove")
-                amount_paid.grid(row= coin_row, column = 4, sticky=N + S + E + W)
+                amount_paid.grid(row= coin_row, column = 5, sticky=N + S + E + W)
 
                 currnet_val = HoverLabel(pycrypto, text="${0:.2f}".format(float(currnet_value)),  activebackground="#b7b7b7", fg="black", font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "groove")
-                currnet_val.grid(row= coin_row, column = 5, sticky=N + S + E + W)
+                currnet_val.grid(row= coin_row, column = 6, sticky=N + S + E + W)
 
                 pl_coin = HoverLabel(pycrypto, text="${0:.2f}".format(float(pl_percoin)), bg=bg_color(float("{0:.2f}".format(float(pl_percoin)))), fg=font_color(float("{0:.2f}".format(float(pl_percoin)))), font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "groove")
-                pl_coin.grid(row= coin_row, column = 6, sticky=N + S + E + W)
+                pl_coin.grid(row= coin_row, column = 7, sticky=N + S + E + W)
 
                 totalpl = HoverLabel(pycrypto, text="${0:.2f}".format(float(total_pl_coin)), bg=bg_color(float("{0:.2f}".format(float(total_pl_coin)))), fg=font_color(float("{0:.2f}".format(float(total_pl_coin)))), font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "groove")
-                totalpl.grid(row= coin_row, column = 7, sticky=N + S + E + W)
+                totalpl.grid(row= coin_row, column = 8, sticky=N + S + E + W)
 
                 coin_row += 1
 
@@ -175,7 +192,7 @@ def my_portfolio():
     amount_update = Entry(pycrypto, borderwidth = 2, relief = "groove")
     amount_update.grid(row= coin_row + 2, column = 3)
 
-    update_coin = Button(pycrypto, text= "Update Coin", bg = "#1c7071",fg= "white", command = update_coin , font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "groove")
+    update_coin = Button(pycrypto, text= "Update Coin", bg = "#1c7071",fg= "white", command = update_coin , font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "raised")
 
     update_coin.grid(row= coin_row + 2, column = 4, sticky = N + S + E + W) #---End of Update Data---
 
@@ -216,18 +233,22 @@ def app_header():
 
     no_coins = Label(pycrypto, text="Coins Owned", bg="#1c7071", fg="white", font= "Lato 12 bold", padx = "5", pady= "5",borderwidth=2, relief= "groove")
     no_coins.grid(row= 0, column = 3, sticky=N + S + E + W)
+    
+    pur_at = Label(pycrypto, text="Price Purchased At", bg="#1c7071", fg="white", font= "Lato 12 bold", padx = "5", pady= "5",borderwidth=2, relief= "groove")
+    pur_at.grid(row= 0, column = 4, sticky=N + S + E + W)  # starts at col 4
 
     amount_paid = Label(pycrypto, text="Total Amount Paid", bg="#1c7071", fg="white", font= "Lato 12 bold", padx = "5", pady= "5",borderwidth=2, relief= "groove")
-    amount_paid.grid(row= 0, column = 4, sticky=N + S + E + W)
+    amount_paid.grid(row= 0, column = 5, sticky=N + S + E + W)
 
     currnet_val = Label(pycrypto, text="Current Value", bg="#1c7071", fg="white", font= "Lato 12 bold", padx = "5", pady= "5",borderwidth=2, relief= "groove")
-    currnet_val.grid(row= 0, column = 5, sticky=N + S + E + W)
+    currnet_val.grid(row= 0, column = 6, sticky=N + S + E + W)
 
     pl_coin = Label(pycrypto, text="P/L Per Coin", bg="#1c7071", fg="white", font= "Lato 12 bold", padx = "5", pady= "5",borderwidth=2, relief= "groove")
-    pl_coin.grid(row= 0, column = 6, sticky=N + S + E + W)
+    pl_coin.grid(row= 0, column = 7, sticky=N + S + E + W)
 
     totalpl = Label(pycrypto, text="Total P/L With Coin", bg="#1c7071", fg="white", font= "Lato 12 bold", padx = "5", pady= "5",borderwidth=2, relief= "groove")
-    totalpl.grid(row= 0, column = 7, sticky=N + S + E + W)
+    totalpl.grid(row= 0, column = 8, sticky=N + S + E + W)
+
 
 app_header()
 app_nav()
