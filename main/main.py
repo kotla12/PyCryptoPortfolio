@@ -10,6 +10,7 @@ from tkinter import messagebox, Menu
 pycrypto = Tk()
 pycrypto.title('Crypto Portfolio')
 pycrypto.iconbitmap("img/favicon.ico")
+pycrypto.geometry("1100x350")
 updateImage = PhotoImage(file= "img/refresh.png").subsample(2,2)
 
 # database sectoin
@@ -45,10 +46,15 @@ def app_nav():
     def close_app(): # to close the app
         pycrypto.destroy()
 
+    def show_list():
+        list = Toplevel()
+        list.title("All Coins")
+
+
     menu = Menu(pycrypto) # create a menu variable that holds all the items file, edit, help ...
 
     item = Menu(menu) # create an item and assign it to that above menu
-    item.add_command(label= "Show Coins List") # subitem
+    item.add_command(label= "Show Coins List", command = show_list) # subitem
     item.add_command(label= "Close App", command = close_app) # subitem
 
     menu.add_cascade(label= "File", menu = item) # use this thethod to add items inside the menu
