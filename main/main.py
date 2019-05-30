@@ -10,7 +10,7 @@ from tkinter import messagebox, Menu
 pycrypto = Tk()
 pycrypto.title('Crypto Portfolio')
 pycrypto.iconbitmap("img/favicon.ico")
-pycrypto.geometry("1250x350+0+0")
+pycrypto.geometry("1300x350+0+0")
 updateImage = PhotoImage(file= "img/refresh.png").subsample(2,2)
 
 # database sectoin
@@ -205,20 +205,20 @@ def my_portfolio():
     delete_coin.grid(row= coin_row + 3, column = 4, sticky = N + S + E + W) #---End of Delete Data---
 
     totalap = HoverLabel(pycrypto, text="${0:.2f}".format(float(total_amount_paid)), activebackground="#b7b7b7", fg=f"black", font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "groove")
-    totalap.grid(row= coin_row, column = 4, sticky=N + S + E + W)
+    totalap.grid(row= coin_row, column = 5, sticky=N + S + E + W)
 
     totalcv = HoverLabel(pycrypto, text="${0:.2f}".format(float(total_current_value)), activebackground="#b7b7b7", fg=f"black", font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "groove")
-    totalcv.grid(row= coin_row, column = 5, sticky=N + S + E + W)
+    totalcv.grid(row= coin_row, column = 6, sticky=N + S + E + W)
 
-    totalpl = HoverLabel(pycrypto, text="${0:.2f}".format(float(total_pl)),activebackground= bg_color(float("{0:.2f}".format(float(total_pl)))) , fg=font_color(float("{0:.2f}".format(float(total_pl)))), font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "groove")
-    totalpl.grid(row= coin_row, column = 7, sticky=N + S + E + W)
+    totalpl = HoverLabel(pycrypto, text="${0:.2f}".format(float(total_pl)), bg = bg_color(float("{0:.2f}".format(float(total_pl)))) , fg=font_color(float("{0:.2f}".format(float(total_pl)))), font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "groove")
+    totalpl.grid(row= coin_row, column = 8, sticky=N + S + E + W)
 
     api = "" # clear the api so once update is clicked it will use the newest api ( refresh
              # data)
 
 
     update = Button(pycrypto, text="Refresh", bg="#F3F4F6", image = updateImage, compound = 'left',command= refresh, font= "Lato 12 ", padx = "2", pady= "2",borderwidth=2, relief= "groove")
-    update.grid(row= coin_row + 1, column = 7, sticky=N + S + E + W)
+    update.grid(row= coin_row + 1, column = 8, sticky=N + S + E + W)
 
 # header section of the app
 def app_header():
