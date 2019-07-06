@@ -225,7 +225,7 @@ def app_header():
     portfolio_id = Label(pycrypto, text="Portfolio ID", bg="#1c7071", fg="white", font= "Lato 12 bold", padx = "5", pady= "5",borderwidth=2, relief= "groove")
     portfolio_id.grid(row= 0, column = 0, sticky=N + S + E + W)
 
-    name = Label(pycrypto, text="Bitcoin", bg="#1c7071", fg="white", font= "Lato 12 bold", padx = "5", pady= "5",borderwidth=2, relief= "groove")
+    name = Label(pycrypto, text="Coin Name", bg="#1c7071", fg="white", font= "Lato 12 bold", padx = "5", pady= "5",borderwidth=2, relief= "groove")
     name.grid(row= 0, column = 1, sticky=N + S + E + W)
 
     price = Label(pycrypto, text="Current Price", bg="#1c7071", fg="white", font= "Lato 12 bold", padx = "5", pady= "5",borderwidth=2, relief= "groove")
