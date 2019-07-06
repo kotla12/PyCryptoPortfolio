@@ -5,4 +5,11 @@ The purpose is to understand the basics of Python GUI, importing modules, extrac
 
 ## Below is a display of the app looks:
 List of Currencies
-https://github.com/kotla12/PyCryptoPortfolio/blob/master/step2.2.PNG
+
+<img src="step2.2.PNG">
+
+Display of the desktop GUI:
+<img src="step3.3.PNG" >
+
+Confirmation MessageBox for Delteing/Adding/Updating:
+<img src="step4.1Delle.PNG">
